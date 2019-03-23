@@ -20,10 +20,14 @@ export default {
 
 <style scoped>
 #thoughts {
-  margin: 0 auto;
+  margin: 50px auto;
   width: 1000px;
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
+
+  @media screen and (max-width: 320px) {
+    width: 300px;
+  }
 }
 </style>

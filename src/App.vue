@@ -1,5 +1,9 @@
 <template>
   <div id="app">
+    <ul id="navigation">
+        <li><a href="#">Thoughts</a></li>
+        <li><a href="#">Add Thought</a></li>
+      </ul>
     <Thoughts v-bind:thoughts="thoughts"/>
   </div>
 </template>
@@ -46,17 +50,40 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 html, body {
   margin: 0;
   padding: 0;
-  background-color: #000;
-}
-
-#app {
-  font-family: Helvetica, sans-serif;
+  background-color: #FF634D;
+  font-family: Impact, sans-serif;
   text-align: center;
   color: #fff;
-  margin-top: 50px;
+}
+
+ul#navigation {
+  margin: 0;
+  display: flex;
+  width: 100%;
+  height: 50px;
+  line-height: 50px;
+  background-color: #FDEDD0;
+  list-style-type: none;
+  flex-direction: row;
+  justify-content: center;
+
+  li {
+    border-left: 1px solid #ffffff;
+    display: flex;
+    padding: 0 10px 0 10px;
+
+    &:last-child {
+      border-right: 1px solid #ffffff;
+    }
+
+  a {
+    color: #FF634D;
+    text-decoration: none;
+    }
+  }
 }
 </style>

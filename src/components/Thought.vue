@@ -25,18 +25,22 @@ export default {
 #thought {
     display: flex;
     flex-direction: column;
-    border: 1px dotted #fff;
+    border: 1px solid #fff;
+    background-color: #FD795B;
     width: 250px;
     padding: 20px;
     margin: 10px;
+    border-radius: 5px;
+    box-shadow: 1px 1px rgba(0, 0, 0, 0.3);
 
     div {
         margin: 10px 0 10px 0;
     }
 
     .title {
+        text-transform: uppercase;
         display: block;
-        color: lightblue;
+        color: #BCF1ED;
     }
 }
 </style>
