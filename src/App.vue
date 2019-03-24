@@ -54,8 +54,9 @@ export default {
 html, body {
   margin: 0;
   padding: 0;
-  background-color: #FF634D;
-  font-family: Impact, sans-serif;
+  background-color: #f7eddc;
+  font-weight: normal;
+  font-family: 'Courier New';
   text-align: center;
   color: #fff;
 }
@@ -63,10 +64,9 @@ html, body {
 ul#navigation {
   margin: 0;
   display: flex;
-  width: 100%;
   height: 50px;
   line-height: 50px;
-  background-color: #FDEDD0;
+  background-color: #f97f63;
   list-style-type: none;
   flex-direction: row;
   justify-content: center;
@@ -81,7 +81,7 @@ ul#navigation {
     }
 
   a {
-    color: #FF634D;
+    color: #FDEDD0;
     text-decoration: none;
     }
   }

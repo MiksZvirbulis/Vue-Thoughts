@@ -18,7 +18,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 #thoughts {
   margin: 50px auto;
   width: 1000px;
@@ -26,8 +26,12 @@ export default {
   flex-wrap: wrap;
   flex-direction: row;
 
-  @media screen and (max-width: 320px) {
+  @media screen and (max-width: 768px) {
     width: 300px;
+  }
+
+  @media screen and (min-width: 768px) {
+    width: 650px;
   }
 }
 </style>
