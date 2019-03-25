@@ -33,5 +33,9 @@ export default {
   @media screen and (min-width: 768px) {
     width: 650px;
   }
+
+  @media screen and (min-width: 1080px) {
+    width: 950px;
+  }
 }
 </style>
