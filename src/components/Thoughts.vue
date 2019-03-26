@@ -34,7 +34,7 @@ export default {
     width: 650px;
   }
 
-  @media screen and (min-width: 1024px) {
+  @media screen and (min-width: 1080px) {
     width: 950px;
   }
 }
