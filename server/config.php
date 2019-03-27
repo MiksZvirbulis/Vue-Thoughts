@@ -7,8 +7,8 @@ $config = (object) [
     'ROUTES_DIR_NAME' => 'routes',
     # Database access information
     'DB_HOST' => 'localhost',
-    'DB_USER' => '',
-    'DB_NAME' => '',
+    'DB_USER' => 'miks_thoughts',
+    'DB_NAME' => 'miks_thoughts',
     'DB_PASSWORD' => '',
     'DB_CHARSET' => 'utf8mb4'
 ];

@@ -16,7 +16,7 @@ switch($path[0]) {
     case "list":
     if ($type === "GET") {
         $foundRoute = true;
-        include_once("./" . $config->ROUTES_DIR_NAME . "/getList.php");
+        include_once("./" . $config->ROUTES_DIR_NAME . "/getThoughts.php");
     }
     break;
     case "add":
