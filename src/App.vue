@@ -1,32 +1,16 @@
 <template>
   <div id="app">
     <ul id="navigation">
-        <li><a href="#">Thoughts</a></li>
-        <li><a href="#">Add Thought</a></li>
-      </ul>
-    <Thoughts v-bind:thoughts="thoughts"/>
+      <li><a href="#">Thoughts</a></li>
+      <li><a href="#">Add Thought</a></li>
+    </ul>
+    <router-view/>
   </div>
 </template>
 
 <script>
-import axios from 'axios'
-import Thoughts from './components/Thoughts.vue'
-
 export default {
-  name: 'app',
-  components: {
-    Thoughts
-  },
-  data() {
-    return {
-      thoughts: []
-    }
-  },
-  mounted() {
-    axios.get('http://mikscode.com/api/thoughts/list')
-    .then(response => (this.thoughts = response.data))
-    .catch(error => console.log(error))
-  }
+  name: 'app'
 }
 </script>
 
