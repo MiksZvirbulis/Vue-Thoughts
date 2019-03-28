@@ -1,8 +1,8 @@
 <template>
   <div id="app">
     <ul id="navigation">
-      <li><a href="#">Thoughts</a></li>
-      <li><a href="#">Add Thought</a></li>
+      <li><router-link to="/">Thoughts</router-link></li>
+      <li><router-link to="/add">Add Thought</router-link></li>
     </ul>
     <router-view/>
   </div>
