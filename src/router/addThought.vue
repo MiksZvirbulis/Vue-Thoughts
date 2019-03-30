@@ -45,8 +45,8 @@ export default {
             } else {
                 if (title.length <= 3) {
                     this.errors.push("The title should be longer than 3 characters!")
-                } else if (title.length >= 25) {
-                    this.errors.push("Title should be no longer than 25 characters!")
+                } else if (title.length >= 50) {
+                    this.errors.push("Title should be no longer than 50 characters!")
                 }
             }
 
@@ -61,10 +61,12 @@ export default {
             }
 
             if (!this.errors.length) {
-                axios.post("http://mikscode.com/api/thoughts/add", { title, content, date: new Date().toUTCString() })
+                const data = { title, content, date: new Date().toUTCString() }
+                console.log(data.date)
+                axios.post("http://mikscode.com/api/thoughts/add", data)
                 .then(response => {
                     if (response.status === 200) {
-                        console.log("success... not we add new thought to data and redirect to thoughts")
+                        this.$router.push("/") 
                     } else {
                         this.errors.push("Something went wrong with the request. Please try again later!")
                     }

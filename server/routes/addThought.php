@@ -1,8 +1,7 @@
 <?php
-http_response_code(200);
 $thought = json_decode(file_get_contents('php://input'));
 
-if (empty($thought) || !$thought) {
+if (!$thought) {
     echo "NO_PAYLOAD";
     http_response_code(204);
 } else {
