@@ -50,4 +50,74 @@ ul#navigation {
     }
   }
 }
+
+form {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+
+        label {
+            display: flex;
+            margin-right: auto;
+            margin: 20px 0;
+        }
+        
+        input, textarea {
+            margin: 0 20px;
+            padding: 10px;
+            border-radius: 2px;
+            border: 1px solid #ffffff;
+            resize: none;
+            font: inherit;
+
+            &:focus {
+                outline: none;
+                border: 1px solid #63c4f9;
+            }
+
+            &::placeholder {
+                color: #f97f63;
+            }
+        }
+
+
+        button {
+            display: flex;
+            margin: 40px auto;
+            border-radius: 2px;
+            color: #ffffff;
+            padding: 20px;
+            background-color: #f97f63;
+            outline: none;
+            border: 1px solid #ffffff;
+            cursor: pointer;
+            font: inherit;
+
+            &:hover {
+                background-color: #ffffff;
+                color: #f97f63;
+            }
+        }
+    }
+
+    ul#errors {
+        text-align: left;
+        background-color: #ffffff;
+        padding: 10px;
+        margin: 0 20px;
+        border: 1px solid #ffffff;
+        border-radius: 2px;
+
+        li {
+            list-style-type: none;
+            width: 50%;
+            margin: 0 auto;
+            color: #f96379;
+
+            @media screen and (max-width: 360px) {
+                width: 100%;
+                font-size: 14px;
+            }
+        }
+    }
 </style>

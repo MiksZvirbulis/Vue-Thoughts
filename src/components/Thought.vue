@@ -4,11 +4,18 @@
             <div class="title">{{ thought.title }}</div>
             <div class="content">{{ thought.content }}</div>
             <div class="date">{{ stampToDate(thought.date) }}</div>
+            <div class="actions">
+            <form @submit.prevent="deleteThought">
+                <button>Delete</button>
+            </form>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
     name: 'Thought',
     props: ['thought'],
@@ -16,6 +23,21 @@ export default {
         stampToDate: timestamp => {
             const date = new Date(timestamp)
             return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`
+        },
+        deleteThought: function() {
+            const confirmDelete = confirm("Are you sure you want to delete this thought?")
+
+            if (confirmDelete === true) {
+                axios.delete(`http://mikscode.com/api/thoughts/delete/${this.thought.id}`)
+                .then(response => {
+                    if (response.status === 200) {
+                        this.$router.go()
+                    } else {
+                        this.errors.push("Something went wrong with the request. Please try again later!")
+                    }
+                })
+                .catch(error => console.log(error))
+            }
         }
     }
 }
@@ -49,6 +71,10 @@ export default {
 
     .date {
         font-weight: bold;
+    }
+
+    button {
+        color: red;
     }
 }
 </style>

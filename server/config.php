@@ -10,7 +10,7 @@ $config = (object) [
     'DB_USER' => 'miks_thoughts',
     'DB_NAME' => 'miks_thoughts',
     'DB_PASSWORD' => '',
-    'DB_CHARSET' => 'utf8mb4'
+    'DB_CHARSET' => 'latin1'
 ];
 
 # Error Reporting
