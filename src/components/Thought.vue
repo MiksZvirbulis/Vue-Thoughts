@@ -28,15 +28,7 @@ export default {
             const confirmDelete = confirm("Are you sure you want to delete this thought?")
 
             if (confirmDelete === true) {
-                axios.delete(`http://mikscode.com/api/thoughts/delete/${this.thought.id}`)
-                .then(response => {
-                    if (response.status === 200) {
-                        this.$router.go()
-                    } else {
-                        this.errors.push("Something went wrong with the request. Please try again later!")
-                    }
-                })
-                .catch(error => console.log(error))
+                this.$emit('del-thought', this.thought.id)
             }
         }
     }
@@ -54,7 +46,7 @@ export default {
     padding: 20px;
     margin: 10px;
     border-radius: 4px;
-    box-shadow
+    height: 300px;
 
     div {
         margin: 10px 0 10px 0;
@@ -75,6 +67,7 @@ export default {
 
     button {
         color: red;
+        margin: 10px auto 0 auto;
     }
 }
 </style>
