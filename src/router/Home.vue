@@ -1,7 +1,7 @@
 <template>
 <div id="thoughts">
   <div v-for="thought in listThoughts" v-bind:key="thought.id">
-    <Thought v-bind:thought="thought" v-on:del-thought="deleteThought"/>
+    <Thought v-bind:thought="thought"/>
   </div>
 </div>
 </template>
@@ -26,18 +26,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['fetchThoughts']),
-    deleteThought(id) {
-      axios.delete(`http://mikscode.com/api/thoughts/delete/${id}`)
-      .then(response => {
-        if (response.status === 200) {
-          this.thoughts = this.thoughts.filter(thought => thought.id !== id)
-        } else {
-          this.errors.push("Something went wrong with the request. Please try again later!")
-        }
-      })
-      .catch(error => console.log(error))
-    }
+    ...mapActions(['fetchThoughts'])
   },
   mounted() {
     axios.get('http://mikscode.com/api/thoughts/list')

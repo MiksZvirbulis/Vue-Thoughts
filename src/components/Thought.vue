@@ -15,11 +15,13 @@
 
 <script>
 import axios from 'axios'
+import { mapActions } from 'vuex'
 
 export default {
     name: 'Thought',
     props: ['thought'],
     methods: {
+        ...mapActions(['removeThought']),
         stampToDate: timestamp => {
             const date = new Date(timestamp)
             return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`
@@ -28,7 +30,7 @@ export default {
             const confirmDelete = confirm("Are you sure you want to delete this thought?")
 
             if (confirmDelete === true) {
-                this.$emit('del-thought', this.thought.id)
+                this.removeThought(this.thought.id)
             }
         }
     }

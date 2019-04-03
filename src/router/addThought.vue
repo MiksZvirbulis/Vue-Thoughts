@@ -22,6 +22,7 @@
 
 <script>
 import axios from 'axios'
+import { mapActions } from 'vuex'
 
 export default {
     name: "addThought",
@@ -33,6 +34,7 @@ export default {
         }
     },
     methods: {
+        ...mapActions(['addThought']),
         validateForm: function (e) {
             e.preventDefault()
             this.errors = []
@@ -62,15 +64,8 @@ export default {
 
             if (!this.errors.length) {
                 const data = { title, content, date: new Date().toUTCString() }
-                axios.post("http://mikscode.com/api/thoughts/add", data)
-                .then(response => {
-                    if (response.status === 200) {
-                        this.$router.push("/") 
-                    } else {
-                        this.errors.push("Something went wrong with the request. Please try again later!")
-                    }
-                })
-                .catch(error => console.error(error))
+                this.addThought(data)
+                this.$router.push("/") 
             }
         }
     }
