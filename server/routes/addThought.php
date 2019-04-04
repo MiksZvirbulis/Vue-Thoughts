@@ -16,8 +16,7 @@ if (!$thought) {
         echo "QUERY_FAILED";
         http_response_code(204);
     } else {
-        # $thoughtId = $db->lastInsertId();
-        echo "SUCCESS";
+        echo $db->lastInsertId();
         http_response_code(200);
     }
 }

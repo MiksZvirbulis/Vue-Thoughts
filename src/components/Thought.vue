@@ -2,13 +2,17 @@
     <div>
         <div id="thought">
             <div class="title">{{ thought.title }}</div>
-            <div class="content">{{ thought.content }}</div>
-            <div class="date">{{ stampToDate(thought.date) }}</div>
-            <div class="actions">
-            <form @submit.prevent="deleteThought">
-                <button>Delete</button>
+            <form v-if="editMode" @submit.prevent="noForm">
+                <textarea v-model="editedContent"></textarea>
+                <div class="actions">
+                    <button type="button" class="small cancel" @click="editToText(false)">Discard</button>
+                    <button type="button" class="small delete" @click="deleteThought">Delete</button>
+                    <button type="button" class="small save" @click="saveThought">Save</button>
+                </div>
             </form>
-            </div>
+            <div v-else class="content" v-on:dblclick="textToEdit">{{ editedContent }}</div>
+
+            <div class="date">{{ stampToDate(thought.date) }}</div>
         </div>
     </div>
 </template>
@@ -20,8 +24,14 @@ import { mapActions } from 'vuex'
 export default {
     name: 'Thought',
     props: ['thought'],
+    data() {
+        return {
+            editMode: false,
+            editedContent: this.thought.content
+        }
+    },
     methods: {
-        ...mapActions(['removeThought']),
+        ...mapActions(['removeThought', 'editThought']),
         stampToDate: timestamp => {
             const date = new Date(timestamp)
             return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`
@@ -32,6 +42,23 @@ export default {
             if (confirmDelete === true) {
                 this.removeThought(this.thought.id)
             }
+        },
+        saveThought: function() {
+            this.editThought({
+                ...this.thought,
+                content: this.editedContent
+            })
+            this.editToText(this.editedContent)
+        },
+        textToEdit: function() {
+            this.editMode = true
+        },
+        editToText: function(newContent = false) {
+            this.editMode = false
+            this.editedContent = newContent ? newContent : this.thought.content
+        },
+        noForm: function() {
+            return false
         }
     }
 }
@@ -50,6 +77,10 @@ export default {
     border-radius: 4px;
     height: 300px;
 
+    textarea {
+        font-size: 12px;
+    }
+
     div {
         margin: 10px 0 10px 0;
     }
@@ -67,9 +98,20 @@ export default {
         font-weight: bold;
     }
 
-    button {
-        color: red;
-        margin: 10px auto 0 auto;
+    form {
+        display: flex;
+        flex-direction: column;
     }
+
+    form .actions {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+    }
+
+    form .actions button {
+        margin: 0 3px;
+    }
+    
 }
 </style>

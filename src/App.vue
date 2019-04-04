@@ -97,6 +97,29 @@ form {
                 background-color: #ffffff;
                 color: #f97f63;
             }
+
+            &.small {
+              padding: 5px;
+              font-size: 11px;
+            }
+
+            &.delete, &.delete:hover {
+              background-color: rgb(202, 60, 60);
+              color: #ffffff;
+              border: none;
+            }
+
+            &.save, &.save:hover {
+              background-color: rgb(28, 184, 65);
+              color: #ffffff;
+              border: none;
+            }
+
+            &.cancel, &.cancel:hover {
+              background-color: rgb(66, 184, 221);
+              color: #ffffff;
+              border: none;
+            }
         }
     }
 

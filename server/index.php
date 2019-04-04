@@ -8,7 +8,7 @@ if (isset($_SERVER['HTTP_ORIGIN'])) {
 
 if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
     if (isset($_SERVER['HTTP_ACCESS_CONTROL_REQUEST_METHOD']))
-        header("Access-Control-Allow-Methods: GET, POST, OPTIONS, DELETE");
+        header("Access-Control-Allow-Methods: PUT, GET, POST, OPTIONS, DELETE");
     if (isset($_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS']))
         header("Access-Control-Allow-Headers: {$_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS']}");
     exit(0);
@@ -42,6 +42,13 @@ if ($path) {
             $foundRoute = true;
             $thoughtId = (isset($path[1]) && is_numeric($path[1])) ? $path[1] : false;
             include_once("./" . $config->ROUTES_DIR_NAME . "/deleteThought.php");
+        }
+        break;
+        case "update":
+        if ($type === "PUT") {
+            $foundRoute = true;
+            $thoughtId = (isset($path[1]) && is_numeric($path[1])) ? $path[1] : false;
+            include_once("./" . $config->ROUTES_DIR_NAME . "/updateThought.php");
         }
         break;
         default:
