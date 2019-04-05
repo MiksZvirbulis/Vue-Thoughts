@@ -63,7 +63,7 @@ export default {
             }
 
             if (!this.errors.length) {
-                const data = { title, content, date: new Date().toUTCString() }
+                const data = { title, content, date: new Date().toUTCString(), lastUpdated: new Date().toUTCString() }
                 this.addThought(data)
                 this.$router.push("/") 
             }

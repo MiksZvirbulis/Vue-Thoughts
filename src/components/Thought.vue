@@ -1,8 +1,8 @@
 <template>
     <div>
         <div id="thought">
-            <div class="title">{{ thought.title }}</div>
             <form v-if="editMode" @submit.prevent="noForm">
+                <input type="text" v-model="editedTitle"/>
                 <textarea v-model="editedContent"></textarea>
                 <div class="actions">
                     <button type="button" class="small cancel" @click="editToText(false)">Discard</button>
@@ -10,9 +10,12 @@
                     <button type="button" class="small save" @click="saveThought">Save</button>
                 </div>
             </form>
-            <div v-else class="content" v-on:dblclick="textToEdit">{{ editedContent }}</div>
+            <div v-else>
+                <div class="title" v-on:click="textToEdit">{{ editedTitle }}</div>
+                <div class="content" v-on:click="textToEdit">{{ limitContent(editedContent, 220) }}</div>
+            </div>
 
-            <div class="date">{{ stampToDate(thought.date) }}</div>
+            <div class="date">Last Updated: {{ thought.lastUpdated.slice(0, -4) }}</div>
         </div>
     </div>
 </template>
@@ -27,14 +30,14 @@ export default {
     data() {
         return {
             editMode: false,
-            editedContent: this.thought.content
+            editedContent: this.thought.content,
+            editedTitle: this.thought.title
         }
     },
     methods: {
         ...mapActions(['removeThought', 'editThought']),
-        stampToDate: timestamp => {
-            const date = new Date(timestamp)
-            return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`
+        limitContent: (content, limit) => {
+            return (content.length >= limit) ? (content.substring(0, limit) + '...') : content;
         },
         deleteThought: function() {
             const confirmDelete = confirm("Are you sure you want to delete this thought?")
@@ -44,18 +47,23 @@ export default {
             }
         },
         saveThought: function() {
-            this.editThought({
-                ...this.thought,
-                content: this.editedContent
-            })
-            this.editToText(this.editedContent)
+            if (this.editedContent !== this.thought.content || this.editedTitle !== this.thought.title) {
+                this.editThought({
+                    ...this.thought,
+                    content: this.editedContent,
+                    title: this.editedTitle,
+                    lastUpdated: new Date().toUTCString()
+                })
+            }
+            this.editToText(true)
         },
         textToEdit: function() {
             this.editMode = true
         },
         editToText: function(newContent = false) {
             this.editMode = false
-            this.editedContent = newContent ? newContent : this.thought.content
+            this.editedContent = newContent ? this.editedContent : this.thought.content
+            this.editedTitle = newContent ? this.editedTitle : this.thought.title
         },
         noForm: function() {
             return false
@@ -79,6 +87,7 @@ export default {
 
     textarea {
         font-size: 12px;
+        height: 150px;
     }
 
     div {
@@ -88,19 +97,28 @@ export default {
     .title {
         text-transform: uppercase;
         font-weight: bold;
+        cursor: pointer;
     }
 
     .content {
         padding: 15px 0 15px 0;
+        cursor: pointer;
     }
 
     .date {
-        font-weight: bold;
+        font-size: 12px;
+        display: flex;
+        margin-top: auto;
     }
 
     form {
         display: flex;
         flex-direction: column;
+    }
+
+    form input {
+        margin-bottom: 10px;
+        font-size: 12px;
     }
 
     form .actions {

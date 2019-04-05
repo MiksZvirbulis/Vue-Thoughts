@@ -20,11 +20,12 @@ if (!$thought) {
         echo "NOT_FOUND";
         http_response_code(404);
     } else {
-        $updateThoughtQuery = $db->prepare('UPDATE `thoughts` SET `title` = :title, `content` = :content WHERE `id` = :id');
+        $updateThoughtQuery = $db->prepare('UPDATE `thoughts` SET `title` = :title, `lastUpdated` = :last, `content` = :content WHERE `id` = :id');
         $updateThoughtQuery->execute(array(
             ':title' => $thought->title,
+            ':last' => $thought->lastUpdated,
             ':content' => $thought->content,
-            ':id' => $thoughtId
+            ':id' => $thoughtId,
         ));
         if ($updateThoughtQuery === false) {
             echo "QUERY_FAILED";
