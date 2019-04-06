@@ -5,6 +5,8 @@ import VueRouter from 'vue-router'
 import NotFound from '../views/404'
 import Home from '../views/Home'
 import Add from '../views/Add'
+import Signup from '../views/Signup'
+import Login from '../views/Login'
 
 Vue.use(VueRouter)
 
@@ -13,6 +15,8 @@ export default new VueRouter({
   routes: [
     { path: '/', component: Home },
     { path: '/add', component: Add },
+    { path: '/signup', component: Signup },
+    { path: '/login', component: Login },
     { path: '/404', component: NotFound },
     { path: '*', redirect: '/404' },  
   ]

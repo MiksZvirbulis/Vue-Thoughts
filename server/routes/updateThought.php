@@ -1,4 +1,6 @@
 <?php
+if (!defined('IN_APP')) http_response_code(403);
+
 $thought = json_decode(file_get_contents('php://input'));
 
 if (!$thought) {

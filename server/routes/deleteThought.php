@@ -1,4 +1,6 @@
 <?php
+if (!defined('IN_APP')) http_response_code(403);
+
 if ($thoughtId === false) {
     echo "NO_ID";
     http_response_code(204);

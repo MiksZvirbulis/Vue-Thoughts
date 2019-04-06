@@ -3,6 +3,8 @@
     <ul id="navigation">
       <li><router-link to="/">Thoughts</router-link></li>
       <li><router-link to="/add">Add Thought</router-link></li>
+      <li><router-link to="/signup">Signup</router-link></li>
+      <li><router-link to="/login">Login</router-link></li>
     </ul>
     <router-view/>
   </div>

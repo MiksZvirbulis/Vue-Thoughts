@@ -51,6 +51,18 @@ if ($path) {
             include_once("./" . $config->ROUTES_DIR_NAME . "/updateThought.php");
         }
         break;
+        case "signup":
+        if ($type === "POST") {
+            $foundRoute = true;
+            include_once("./" . $config->ROUTES_DIR_NAME . "/signup.php");
+        }
+        break;
+        case "login":
+        if ($type === "POST") {
+            $foundRoute = true;
+            include_once("./" . $config->ROUTES_DIR_NAME . "/login.php");
+        }
+        break;
         default:
         $foundRoute = false;
         break;

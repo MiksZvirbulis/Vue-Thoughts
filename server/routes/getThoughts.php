@@ -1,4 +1,6 @@
 <?php
+if (!defined('IN_APP')) http_response_code(403);
+
 $thoughtsQuery = $db->prepare('SELECT * FROM `thoughts`');
 $thoughtsQuery->execute();
 
