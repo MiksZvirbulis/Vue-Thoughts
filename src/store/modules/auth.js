@@ -21,16 +21,22 @@ const actions = {
     async loginUser({ commit }, user) {
         const response = await axios.post(`${API_URL}/login`, user)
         if (response.status === 200) {
-            commit('authUser', response.data)
+            commit('authUser')
+            return true
+        } else if (response.status === 401) {
+            commit('authUserFailed')
+            return false
         } else {
-            console.log(response.error)
+            commit('authUserFailed')
+            return false
         }
     }
 }
 
 const mutations = {
     newUser: (state, userId) => ( state.userId = userId ),
-    authUser: (state, success) => ( state.loggedIn = (success === 'yes') ? true : false)
+    authUser: (state) => ( state.loggedIn = true ),
+    authUserFailed: (state) => ( state.loggedIn = false )
 }
 
 export default { state, getters, actions, mutations }

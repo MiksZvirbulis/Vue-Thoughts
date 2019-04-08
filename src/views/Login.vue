@@ -1,6 +1,6 @@
 <template>
     <div id="signup">
-        <form novalidate="true" @submit="validateForm">
+        <form @submit.prevent="validateForm">
             <h3>Login</h3>
 
             <p v-if="errors.length">
@@ -35,8 +35,7 @@ export default {
     },
     methods: {
         ...mapActions(['loginUser']),
-        validateForm: function (e) {
-            e.preventDefault()
+        validateForm: async function () {
             this.errors = []
 
             const email = this.email
@@ -52,8 +51,11 @@ export default {
 
             if (!this.errors.length) {
                 const data = { email, password }
-                this.loginUser(data)
-                this.$router.push("/")
+                this.loginUser(data).then(result => {
+                    if (result === true) {
+                        this.$router.push("/")
+                    }
+                })
             }
         }
     }

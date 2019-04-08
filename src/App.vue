@@ -1,18 +1,24 @@
 <template>
   <div id="app">
     <ul id="navigation">
-      <li><router-link to="/">Thoughts</router-link></li>
-      <li><router-link to="/add">Add Thought</router-link></li>
-      <li><router-link to="/signup">Signup</router-link></li>
-      <li><router-link to="/login">Login</router-link></li>
+      <li v-if="auth.loggedIn"><router-link to="/">Thoughts</router-link></li>
+      <li v-if="auth.loggedIn"><router-link to="/add">Add Thought</router-link></li>
+      <li v-if="auth.loggedIn"><router-link to="/logout">Logout</router-link></li>
+      <li v-if="!auth.loggedIn"><router-link to="/signup">Signup</router-link></li>
+      <li v-if="!auth.loggedIn"><router-link to="/login">Login</router-link></li>
     </ul>
     <router-view/>
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
-  name: 'app'
+  name: 'app',
+  computed: {
+    ...mapState(['auth'])
+  }
 }
 </script>
 
