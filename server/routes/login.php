@@ -8,7 +8,7 @@ if (!$user) {
 } else {
     include_once('./functions/hashPassword.php');
 
-    $findUserQuery = $db->prepare('SELECT `hash` FROM `users` WHERE `email` = :email');
+    $findUserQuery = $db->prepare('SELECT `hash`, `id` FROM `users` WHERE `email` = :email');
     $findUserQuery->execute(array(
         ':email' => $user->email
     ));
@@ -22,6 +22,10 @@ if (!$user) {
         if ($checkPassword === false) {
             http_response_code(401);
         } else {
+            echo json_encode([
+                'userId' => $foundUser['id'],
+                'token' => $foundUser['hash']
+            ]);
             http_response_code(200);
         }
     }
