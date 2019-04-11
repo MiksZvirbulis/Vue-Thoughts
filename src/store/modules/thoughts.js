@@ -11,8 +11,8 @@ const getters = {
 }
 
 const actions = {
-    async fetchThoughts({ commit }) {
-        const response = await axios.get(`${API_URL}/list`)
+    async fetchThoughts({ commit }, userId) {
+        const response = await axios.get(`${API_URL}/list/${userId}`)
         if (response.status === 200) {
            commit('setThoughts', response.data)
         } else {

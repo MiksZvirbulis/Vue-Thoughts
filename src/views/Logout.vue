@@ -1,3 +1,9 @@
+<template>
+    <div>
+        <h3>Logging out...</h3>
+    </div>
+</template>
+
 <script>
 import axios from 'axios'
 import { mapActions, mapState } from 'vuex'

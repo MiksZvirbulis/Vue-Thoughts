@@ -8,7 +8,7 @@
 
 <script>
 import axios from 'axios'
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters, mapActions, mapState } from 'vuex'
 import Thought from '../components/Thought'
 
 export default {
@@ -16,9 +16,9 @@ export default {
   components: {
     Thought
   },
-  computed: mapGetters(['listThoughts']),
+  computed: {...mapGetters(['listThoughts']), ...mapState(['auth'])},
   created() {
-    this.fetchThoughts()
+    this.fetchThoughts(this.auth.userId)
   },
   data() {
     return {
@@ -27,11 +27,6 @@ export default {
   },
   methods: {
     ...mapActions(['fetchThoughts'])
-  },
-  mounted() {
-    axios.get('http://mikscode.com/api/thoughts/list')
-    .then(response => (this.thoughts = response.data))
-    .catch(error => console.log(error))
   }
 }
 </script>

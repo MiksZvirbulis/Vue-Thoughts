@@ -1,8 +1,10 @@
 <?php
 if (!defined('IN_APP')) http_response_code(403);
 
-$thoughtsQuery = $db->prepare('SELECT * FROM `thoughts`');
-$thoughtsQuery->execute();
+$thoughtsQuery = $db->prepare('SELECT * FROM `thoughts` WHERE `userId` = :userId');
+$thoughtsQuery->execute([
+    ':userId' => $userId
+]);
 
 if ($thoughtsQuery === false) {
     http_response_code(204);

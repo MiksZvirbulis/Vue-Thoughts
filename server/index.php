@@ -28,6 +28,7 @@ if ($path) {
         case "list":
         if ($type === "GET") {
             $foundRoute = true;
+            $userId = (isset($path[1]) && is_numeric($path[1])) ? $path[1] : false;
             include_once("./" . $config->ROUTES_DIR_NAME . "/getThoughts.php");
         }
         break;
@@ -61,6 +62,12 @@ if ($path) {
         if ($type === "POST") {
             $foundRoute = true;
             include_once("./" . $config->ROUTES_DIR_NAME . "/login.php");
+        }
+        break;
+        case "checkUser":
+        if ($type === "POST") {
+            $foundRoute = true;
+            include_once("./" . $config->ROUTES_DIR_NAME . "/checkUser.php");
         }
         break;
         default:

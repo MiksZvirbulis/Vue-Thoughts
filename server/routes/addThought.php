@@ -7,12 +7,13 @@ if (!$thought) {
     echo "NO_PAYLOAD";
     http_response_code(204);
 } else {
-    $addThoughtQuery = $db->prepare('INSERT INTO `thoughts` (`title`, `content`, `date`, `lastUpdated`) VALUES (:title, :content, :date, :last)');
+    $addThoughtQuery = $db->prepare('INSERT INTO `thoughts` (`title`, `content`, `date`, `lastUpdated`, `userId`) VALUES (:title, :content, :date, :last, :userId)');
     $addThoughtQuery->execute(array(
         ':title' => $thought->title,
         ':content' => $thought->content,
         ':date' => $thought->date,
-        ':last' => $thought->lastUpdated
+        ':last' => $thought->lastUpdated,
+        ':userId' => $thought->userId
     ));
 
     if ($addThoughtQuery === false) {

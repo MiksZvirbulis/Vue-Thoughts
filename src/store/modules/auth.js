@@ -3,6 +3,7 @@ import axios from 'axios'
 const API_URL = 'http://mikscode.com/api/thoughts'
 
 const state = {
+    errors: [],
     userId: null,
     loggedIn: false
 }
@@ -13,7 +14,7 @@ const actions = {
     async signupUser({ commit }, user) {
         const response = await axios.post(`${API_URL}/signup`, user)
         if (response.status === 200) {
-            commit('newUser', response.data)
+            commit('newUser')
         } else {
             console.log(response.error)
         }
@@ -31,13 +32,32 @@ const actions = {
             return false
         }
     },
-    async logoutUser({ commit }) {
+    logoutUser({ commit }) {
         commit('authUserFailed')
+    },
+    async loggedIn({ commit }) {
+        if (localStorage.getItem('token') && localStorage.getItem('userId')) {
+            const userData = {
+                userId: localStorage.getItem('userId'),
+                token: localStorage.getItem('token')
+            }
+            const response = await axios.post(`${API_URL}/checkUser`, userData)
+            if (response.status === 200) {
+                commit('loggedInSuccess', userData.userId)
+                return true
+            } else {
+                commit('loggedInFail')
+                return false
+            }
+        } else {
+            commit('loggedInFail')
+            return false
+        }
     }
 }
 
 const mutations = {
-    newUser: (state, userId) => ( state.userId = userId ),
+    newUser: (state) => ( state.errors = [] ),
     authUser: (state, userData) => {
         state.loggedIn = true
         state.userId = userData.userId
@@ -45,7 +65,17 @@ const mutations = {
         localStorage.setItem('token', userData.token)
     },
     authUserFailed: state => {
-        state.loggedIn = false,
+        state.loggedIn = false
+        state.userId = null
+        localStorage.removeItem('userId')
+        localStorage.removeItem('token')
+    },
+    loggedInSuccess: (state, userId) => {
+        state.loggedIn = true
+        state.userId = userId
+    },
+    loggedInFail: state => {
+        state.loggedIn = false
         state.userId = null
     }
 }

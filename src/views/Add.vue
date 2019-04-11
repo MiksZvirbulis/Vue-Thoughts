@@ -22,7 +22,7 @@
 
 <script>
 import axios from 'axios'
-import { mapActions } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 
 export default {
     name: "addThought",
@@ -33,6 +33,7 @@ export default {
             errors: []
         }
     },
+    computed: mapState(['auth']),
     methods: {
         ...mapActions(['addThought']),
         validateForm: function (e) {
@@ -63,8 +64,14 @@ export default {
             }
 
             if (!this.errors.length) {
-                const data = { title, content, date: new Date().toUTCString(), lastUpdated: new Date().toUTCString() }
-                this.addThought(data)
+                const thought = {
+                    title,
+                    content,
+                    date: new Date().toUTCString(),
+                    lastUpdated: new Date().toUTCString(),
+                    userId: this.auth.userId
+                }
+                this.addThought(thought)
                 this.$router.push("/") 
             }
         }
