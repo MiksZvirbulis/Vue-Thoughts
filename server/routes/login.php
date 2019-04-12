@@ -22,6 +22,12 @@ if (!$user) {
         if ($checkPassword === false) {
             http_response_code(401);
         } else {
+            $updateUserQuery = $db->prepare('UPDATE `users` SET `lastAuth` = :lastAuth WHERE `email` = :email');
+            $updateUserQuery->execute(array(
+                ':lastAuth' => $user->authTime,
+                ':email' => $user->email
+            ));
+
             echo json_encode([
                 'userId' => $foundUser['id'],
                 'token' => $foundUser['hash']

@@ -8,7 +8,7 @@ if (!$user) {
 } else {
     include_once('./functions/hashPassword.php');
 
-    $findUserQuery = $db->prepare('SELECT `id` FROM `users` WHERE `id` = :userId AND `hash` = :hash');
+    $findUserQuery = $db->prepare('SELECT `id`, `lastAuth` FROM `users` WHERE `id` = :userId AND `hash` = :hash');
     $findUserQuery->execute(array(
         ':userId' => $user->userId,
         ':hash' => $user->token
@@ -17,6 +17,14 @@ if (!$user) {
     if ($findUserQuery->rowCount() === 0) {
         http_response_code(204);
     } else {
-        http_response_code(200);
+        $foundUser = $findUserQuery->fetch();
+
+        $timeDifference = time() - strtotime($foundUser['lastAuth']);
+
+        if ($timeDifference > 3600) {
+            http_response_code(204);
+        } else {
+            http_response_code(200);
+        }
     }
 }

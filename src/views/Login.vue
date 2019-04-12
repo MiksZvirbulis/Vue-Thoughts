@@ -50,7 +50,7 @@ export default {
             }
 
             if (!this.errors.length) {
-                const data = { email, password }
+                const data = { email, password, authTime: new Date().toUTCString() }
                 this.loginUser(data).then(result => {
                     if (result === true) {
                         this.$router.push("/")
