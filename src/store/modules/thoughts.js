@@ -12,7 +12,8 @@ const getters = {
 
 const actions = {
     async fetchThoughts({ commit }, userId) {
-        const response = await axios.get(`${API_URL}/list/${userId}`)
+        const token = localStorage.getItem('token')
+        const response = await axios.get(`${API_URL}/list/${userId}`, { headers: {"Token" : token }})
         if (response.status === 200) {
            commit('setThoughts', response.data)
         } else {
