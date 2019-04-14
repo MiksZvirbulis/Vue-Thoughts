@@ -39,7 +39,7 @@ if ($path) {
         }
         break;
         case "delete":
-        if ($type === "DELETE") {
+        if ($type === "POST") {
             $foundRoute = true;
             $thoughtId = (isset($path[1]) && is_numeric($path[1])) ? $path[1] : false;
             include_once("./" . $config->ROUTES_DIR_NAME . "/deleteThought.php");

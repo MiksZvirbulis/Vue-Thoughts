@@ -10,9 +10,10 @@ const getters = {
     listThoughts: state => state.thoughts
 }
 
+const token = localStorage.getItem('token') ? localStorage.getItem('token') : ""
+
 const actions = {
     async fetchThoughts({ commit }, userId) {
-        const token = localStorage.getItem('token')
         const response = await axios.get(`${API_URL}/list/${userId}`, { headers: {"Token" : token }})
         if (response.status === 200) {
            commit('setThoughts', response.data)
@@ -21,7 +22,7 @@ const actions = {
         }
     },
     async addThought({ commit }, thought) {
-        const response = await axios.post(`${API_URL}/add`, thought)
+        const response = await axios.post(`${API_URL}/add`, thought, { headers: {"Token" : token }})
         if (response.status === 200) {
             commit('newThought', {
                 ...thought,
@@ -31,16 +32,16 @@ const actions = {
             console.log(response.error)
         }
     },
-    async removeThought({ commit }, thoughtId) {
-        const response = await axios.delete(`${API_URL}/delete/${thoughtId}`)
+    async removeThought({ commit }, data) {
+        const response = await axios.post(`${API_URL}/delete/${data.thoughtId}`, { userId: data.userId }, { headers: {"Token" : token }})
         if (response.status === 200) {
-            commit('deleteThought', thoughtId)
+            commit('deleteThought', data.thoughtId)
         } else {
             console.log(response.error)
         }
     },
     async editThought({ commit }, editedThought) {
-        const response = await axios.put(`${API_URL}/update/${editedThought.id}`, editedThought)
+        const response = await axios.put(`${API_URL}/update/${editedThought.id}`, editedThought, { headers: {"Token" : token }})
         if (response.status === 200) {
             commit('updateThought', editedThought)
         } else {

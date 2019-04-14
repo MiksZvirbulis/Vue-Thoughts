@@ -22,7 +22,7 @@
 
 <script>
 import axios from 'axios'
-import { mapActions } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 
 export default {
     name: 'Thought',
@@ -34,6 +34,7 @@ export default {
             editedTitle: this.thought.title
         }
     },
+    computed: { ...mapState(['auth']) },
     methods: {
         ...mapActions(['removeThought', 'editThought']),
         limitContent: (content, limit) => {
@@ -43,7 +44,7 @@ export default {
             const confirmDelete = confirm("Are you sure you want to delete this thought?")
 
             if (confirmDelete === true) {
-                this.removeThought(this.thought.id)
+                this.removeThought({ thoughtId: this.thought.id, userId: this.auth.userId})
             }
         },
         saveThought: function() {
@@ -52,7 +53,8 @@ export default {
                     ...this.thought,
                     content: this.editedContent,
                     title: this.editedTitle,
-                    lastUpdated: new Date().toUTCString()
+                    lastUpdated: new Date().toUTCString(),
+                    userId: this.auth.userId
                 })
             }
             this.editToText(true)

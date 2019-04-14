@@ -7,10 +7,10 @@ if (!isset($_SERVER['HTTP_TOKEN'])) {
     require_once("./functions/hasAccess.php");
 
     if (hasAccess($_SERVER['HTTP_TOKEN'], $userId)) {
-            $thoughtsQuery = $db->prepare('SELECT * FROM `thoughts` WHERE `userId` = :userId');
-            $thoughtsQuery->execute([
-                ':userId' => $userId
-            ]);
+        $thoughtsQuery = $db->prepare('SELECT * FROM `thoughts` WHERE `userId` = :userId');
+        $thoughtsQuery->execute([
+            ':userId' => $userId
+        ]);
 
         if ($thoughtsQuery === false) {
             http_response_code(204);
