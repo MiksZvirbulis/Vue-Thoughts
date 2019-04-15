@@ -25,7 +25,6 @@ if (!isset($_SERVER['HTTP_TOKEN'])) {
             echo "NOT_FOUND";
             http_response_code(404);
         } else {
-            # $thoughtId = $db->lastInsertId();
             $deleteThoughtQuery = $db->prepare('DELETE FROM `thoughts` WHERE `id` = :id');
             $deleteThoughtQuery->execute(array(
                 ':id' => $thoughtId

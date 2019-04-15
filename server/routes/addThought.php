@@ -3,8 +3,6 @@ if (!defined('IN_APP')) http_response_code(403);
 
 $thought = json_decode(file_get_contents('php://input'));
 
-
-
 if (!isset($_SERVER['HTTP_TOKEN'])) {
     http_response_code(403);
 } else if (!$thought) {
@@ -24,7 +22,6 @@ if (!isset($_SERVER['HTTP_TOKEN'])) {
         ]);
 
         if ($addThoughtQuery === false) {
-            echo "QUERY_FAILED";
             http_response_code(204);
         } else {
             echo $db->lastInsertId();

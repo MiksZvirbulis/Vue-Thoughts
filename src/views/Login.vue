@@ -22,10 +22,16 @@
 
 <script>
 import axios from 'axios'
-import { mapActions } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 
 export default {
     name: "login",
+    computed: { ...mapState(['auth']) },
+    created() {
+        if (this.auth.loggedIn === true) {
+            this.$router.push("/")
+        }
+    },
     data() {
         return {
             email: null,

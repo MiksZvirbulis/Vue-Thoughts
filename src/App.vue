@@ -7,20 +7,26 @@
       <li v-if="!auth.loggedIn"><router-link to="/signup">Signup</router-link></li>
       <li v-if="!auth.loggedIn"><router-link to="/login">Login</router-link></li>
     </ul>
+    <div id="errors" v-if="auth.error || thoughts.error">
+      <div v-if="auth.error !== null">{{ handleError(auth.error) }}</div>
+      <div v-if="thoughts.error !== null">{{ handleError(thoughts.error) }}</div>
+    </div>
     <router-view/>
   </div>
 </template>
 
 <script>
 import { mapState, mapActions } from 'vuex'
+import handleError from './utils/handleError'
 
 export default {
   name: 'app',
   computed: {
-    ...mapState(['auth'])
+    ...mapState(['auth', 'thoughts'])
   },
   methods: {
-    ...mapActions(['loggedIn'])
+    ...mapActions(['loggedIn']),
+    handleError
   },
   created() {
     
@@ -63,6 +69,17 @@ ul#navigation {
     text-decoration: none;
     }
   }
+}
+
+#errors {
+  display: flex;
+  flex-direction: column;
+  margin: 50px auto 0 auto;
+  color: #721c24;
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+  width: 50%;
+  padding: 10px;
 }
 
 form {

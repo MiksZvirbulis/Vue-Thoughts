@@ -21,7 +21,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 import { mapActions } from 'vuex'
 
 export default {
@@ -35,7 +34,7 @@ export default {
     },
     methods: {
         ...mapActions(['signupUser']),
-        validateForm: function (e) {
+        validateForm: async function (e) {
             e.preventDefault()
             this.errors = []
 
@@ -58,8 +57,11 @@ export default {
 
             if (!this.errors.length) {
                 const data = { email, password, signedUpDate: new Date().toUTCString() }
-                this.signupUser(data)
-                this.$router.push("/login")
+                this.signupUser(data).then(result => {
+                    if (result === true) {
+                        this.$router.push("/login")
+                    }
+                })
             }
         }
     }
