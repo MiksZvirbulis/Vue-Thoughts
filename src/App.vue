@@ -9,7 +9,6 @@
     </ul>
     <div id="errors" v-if="auth.error || thoughts.error">
       <div v-if="auth.error !== null">{{ handleError(auth.error) }}</div>
-      <div v-if="thoughts.error !== null">{{ handleError(thoughts.error) }}</div>
     </div>
     <router-view/>
   </div>
