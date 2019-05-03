@@ -29,6 +29,8 @@ const actions = {
         try {
             const response = await axios.post(`${API_URL}/login`, user)
             if (response.status === 200) {
+                localStorage.setItem('userId', response.data.userId)
+                localStorage.setItem('token', response.data.token)
                 commit('authUser', response.data)
                 return true
             } else {
@@ -37,7 +39,7 @@ const actions = {
                 return false
             }
         } catch (error) {
-            commit('setError', error.response.data)
+            commit('setError', error.response.message)
             return false
         }
     },
@@ -78,8 +80,6 @@ const mutations = {
     authUser: (state, userData) => {
         state.loggedIn = true
         state.userId = userData.userId
-        localStorage.setItem('userId', userData.userId)
-        localStorage.setItem('token', userData.token)
     },
     authUserFailed: state => {
         state.loggedIn = false
